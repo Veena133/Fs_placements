@@ -1,30 +1,24 @@
-import java.util.*;
-public class Solution{
-    public static void main(String args[]){
-        Scanner sc = new Scanner(System.in);
-        int f=0;
-        int n=sc.nextInt();
-        if(n<0){
-            System.out.println("Invalid Input");
-            f=1;
-            }
-else{
-           int a[]= new int[n];
-        for(int i=0;i<n;i++){
-         a[i]=sc.nextInt();
-            if(a[i]<0){
-           System.out.println("Invalid Input");
-                f=1;
-                break;
-                }
-             }
-             
-        if(f==0){
-            Arrays.sort(a);
-            System.out.println(a[0]+" "+a[n-1]);
-        }
-    }
-    
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+//num.toString().split(‘’).map(Number)
+function sumOfCubes(num) {
+    let sum=0;
+ while(num>0){
+    let a= num%10;
+    sum=sum+(a*a*a);
+    num=Math.floor(num/10);
+/*
+Math.pow(n,3);
+*/
+ }
+ return sum;
+}
+readline.question('',function(input){
+    const number = parseInt(input);
+    const result = sumOfCubes(number);
+    console.log(result);
 
-}
-}
+readline.close();
+});*/
