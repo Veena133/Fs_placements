@@ -53,3 +53,27 @@ class Solution{
         }
     }
 }
+// or use this code
+*/
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String s[]=sc.nextLine().split(" ");
+        int n=Integer.parseInt(s[0]);
+        if(n!=(s.length-n-1)){
+            System.out.println("Incompatbile");
+            return;
+        }
+        else{
+            int m[]=Arrays.stream(s).mapToInt(Integer::parseInt).toArray();
+            int a[]=Arrays.copyOfRange(m,1,n+1);
+            int b[]=Arrays.copyOfRange(m,n+1,m.length);
+            int res[]=new int[n];
+            for(int i=0;i<n;i++){
+                res[i]=a[i]+b[i];
+            }
+            System.out.println(Arrays.toString(res));
+        }
+    }
+}
