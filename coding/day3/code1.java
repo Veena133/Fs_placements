@@ -1,4 +1,4 @@
-The Pan Am 73 flight from Bombay to New York en route Karachi and Frankfurt was 
+/*The Pan Am 73 flight from Bombay to New York en route Karachi and Frankfurt was 
 hijacked by a few Palestinian terrorists at the Karachi International  Airport.
                                                                                  
 The senior flight purser Neerja Banhot had to wither her fear and start
@@ -33,3 +33,34 @@ Sample Testcase:2
 input=6 
 68 -45
 Output/=Invalid Input
+*/
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int f=0;
+        int n=sc.nextInt();
+        if(n<0){
+            System.out.println("Invalid Input");
+            f=1;
+            }
+else{
+           int a[]= new int[n];
+        for(int i=0;i<n;i++){
+         a[i]=sc.nextInt();
+            if(a[i]<0){
+           System.out.println("Invalid Input");
+                f=1;
+                break;
+                }
+             }
+             
+        if(f==0){
+            Arrays.sort(a);
+            System.out.println(a[0]+" "+a[n-1]);
+        }
+    }
+    
+
+}
+}
