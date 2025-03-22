@@ -1,0 +1,48 @@
+Given an N x M grid where each cell contains a number, find the sum of
+the path from (0,0) to (N-1,M-1).
+ Allowed moves: Right (→) and Down (↓).
+Choose the path with the maximum sum.
+
+Sample Testcase:1
+--------------------------------
+Input=3 3
+1 2 3
+4 5 6
+7 8 9
+Output=29
+
+
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        int m=sc.nextInt();
+        int a[][] = new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                a[i][j] = sc.nextInt();
+            }
+        }
+        int max=maximum(0,0,n,m,a);
+        
+
+System.out.println(max);
+        
+    }
+  public static int maximum(int i, int j, int n, int m,int a[][]){
+        if (i == n - 1 && j == m - 1) {
+
+            return a[i][j];
+        }
+        if (i >= n || j >= m) {
+            return Integer.MIN_VALUE;
+        }
+        int right = maximum(i, j + 1, n, m, a);
+        int down = maximum(i + 1, j, n, m, a);
+
+        return a[i][j] + Math.max(right, down);
+}
+
+
+}
