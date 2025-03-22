@@ -1,0 +1,52 @@
+Write a recursive function to print an array from the last element to the first.
+
+
+Sample Testcase:1
+-------------------------------
+Input=1 2 3 4 5
+Output=5 4 3 2 1
+/*
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc= new Scanner(System.in);
+        String s[]= sc.nextLine().split(" ");
+        int a[]=new int[s.length];
+        for(int i=0;i<a.length;i++){
+            a[i]=Integer.parseInt(s[i]);
+        }
+        reverse(a,a.length-1);
+       
+    }
+    public static void reverse(int[] a,int i){
+        int b[] = a;
+        System.out.print(a[i]+" ");
+        i--;
+        if(i>=0){
+        reverse(b,i);
+        }
+    }
+}
+*/
+/*
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc= new Scanner(System.in);
+        String s[]= sc.nextLine().split(" ");
+        int a[]=new int[s.length];
+        for(int i=0;i<a.length;i++){
+            a[i]=Integer.parseInt(s[i]);
+        }
+        reverse(a,a.length-1);
+       
+    }
+    public static void reverse(int[] a,int size){
+        System.out.print(a[size]+" ");
+        size--;
+        if(size>=0){
+        reverse(a,size);
+        }
+    }
+}
+*/
