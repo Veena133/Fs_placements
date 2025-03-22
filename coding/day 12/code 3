@@ -1,0 +1,53 @@
+Students are given sentences in the target language where vowels and consonants
+ within each word are jumbled. They need to rearrange the words so that vowels 
+appear to the left of consonants within each word, and the words are sorted based on this pattern.
+
+Sample Testcase:1
+-------------------------------
+input=a man is happy if he codes everyday
+output=a amn is ahppy if eh eocds aeedrvyy
+
+Sample Testcase:2
+-------------------------------
+input=honesty is the best policy
+output=eohnsty is eht ebst ioclpy
+/*import java.util.*;
+public class Solution{
+public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String a = sc.nextLine();
+        String v = "aeiouAEIOU";
+        String word[]=a.split(" ");
+        StringBuilder res = new StringBuilder();
+        
+        for(int i=0;i<word.length;i++){
+           List<Character> vpart = new ArrayList<>();
+           List<Character> cpart = new ArrayList<>();
+           List<Character> spart = new ArrayList<>();
+           
+           for(int j=0;j<word[i].length();j++){
+               char ch = word[i].charAt(j);
+               if(v.indexOf(ch)!=-1){
+               vpart.add(ch);
+               }
+               else if(!Character.isAlphabetic(ch)){
+                    spart.add(ch);
+                    }
+               else 
+               cpart.add(ch);
+           }
+           Collections.sort(vpart);
+           Collections.sort(cpart);
+           for(char ch:vpart)res.append(ch);
+           for(char ch:cpart)res.append(ch);
+           for(char ch:spart)res.append(ch);
+           
+            if(i<word.length-1){
+                res.append(" ");
+            }
+        }
+        System.out.println(res);
+    }
+
+}
+*/
