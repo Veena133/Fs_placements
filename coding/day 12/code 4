@@ -1,0 +1,50 @@
+You're developing a text analysis tool for language processing.
+ One of the functionalities required is to convert sentences into a
+ format where vowels are represented by 'V' and consonants by 'C', maintaining 
+an alternating sequence. This format aids in certain linguistic analyses and data processing tasks.
+
+It is not permissible to have two or more consecutive V or C in Sequence.
+
+
+Sample Testcase:1
+-------------------------------
+input =Whereabouts
+output =CVCVCVC
+
+Sample Testcase:2
+-------------------------------
+input =make in india
+Output=CVCVCVCV
+/*import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s= sc.nextLine();
+        String v="aeiouAEIOU";
+        s=s.replace(" ","");
+        StringBuilder str= new StringBuilder();
+        if(v.contains(String.valueOf(s.charAt(0)))){
+            str.append('V');
+        }
+        else{
+            str.append('C');
+        }
+        for(int i=1;i<s.length();i++){
+            char curr = s.charAt(i);
+            char last = str.charAt(str.length()-1);
+            if(v.contains(String.valueOf(s.charAt(i)))){
+                if(last!='V'){
+                    str.append('V');
+                }
+            }
+            else{
+                if(last!='C'){
+                    str.append('C');
+                }
+            }
+        }
+        System.out.print(str.toString());
+    }
+}
+
+*/
