@@ -1,0 +1,34 @@
+Java program to print all possible subarrays of a given array.
+
+Sample TestCase:1
+---------------------------
+input=1 2 3
+output=1
+1 2
+1 2 3
+2
+2 3
+3
+/*
+import java.util.*;
+public class Solution{
+public static void main(String args[]){
+    Scanner sc=new Scanner(System.in);
+    int n= sc.nextInt();
+    int s[]=new int[n];
+    for(int i=0;i<s.length;i++){
+        s[i]=sc.nextInt();
+    }
+    for(int i=0;i<s.length;i++){
+        StringBuilder str = new StringBuilder();
+        for(int j=i;j<s.length;j++){
+            str.append(s[j]);
+            str.append(" ");
+            System.out.println(str.toString());
+        }
+        
+    }
+    }
+}
+*/
+
