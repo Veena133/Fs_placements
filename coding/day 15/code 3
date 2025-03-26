@@ -1,0 +1,43 @@
+/*You are given an integer array nums consisting of n elements, and an integer k.
+
+Find a contiguous subarray whose length is equal to k that has the maximum 
+average value and return this value. 
+
+Sample Testcase:1
+------------------------------------
+input=1 12 -5 -6 50 3
+4
+output: 12.75000
+
+Explanation:
+----------------
+ Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75
+  */
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[]=sc.nextLine().split(" ");
+        int a[]=new int[s.length];
+        int n= sc.nextInt();
+        for(int i=0;i<a.length;i++){
+            a[i]=Integer.parseInt(s[i]);
+        }
+       double sum=0;
+       for(int i=0;i<n;i++){
+           sum+=a[i];
+       }
+       double max=(sum/n);
+       sum=sum-a[0];
+       int j=1,i=n;
+       while(i<a.length){
+           sum=sum+a[i];
+           double avg = sum/n;
+           max=Math.max(avg,max);
+           sum=sum-a[j];
+           i++;
+           j++;
+       }
+       System.out.println(max);
+    }
+}
