@@ -1,0 +1,27 @@
+import java.util.*;
+public class Day16 {
+    public static void main(String[] args) {
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    String s[] = sc.nextLine().split(" ");
+    int tar = sc.nextInt();
+    int a[] = new int[s.length];
+    for (int i = 0; i < a.length; i++) {
+        a[i] = Integer.parseInt(s[i]);
+    }
+    int min = Integer.MAX_VALUE;
+    int sum = 0;
+    int i = 0;
+    for (int j = 0; j < a.length; j++) {
+        sum += a[j];
+        while (sum >= tar) {
+            if (sum == tar) {
+                min = Math.min(min, j - i + 1);
+            }
+            sum -= a[i];
+            i++;
+        }
+    }
+
+    System.out.println(min);
+}
