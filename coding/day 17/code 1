@@ -1,0 +1,65 @@
+/*Given an integer array nums, return the number of triplets chosen
+ from the array that can make triangles if we take them as side
+ lengths of a triangle. If no triangles are formed from the array
+print 0.
+
+ 
+Sample Testcase:1
+----------------------------
+input=4
+2 2 3 4
+output=3
+Explanation:
+-------------------------
+Valid combinations are: 
+2,3,4 (using the first 2)
+2,3,4 (using the second 2)
+2,2,3
+
+Sample Testcase:2
+----------------------------
+input=4
+4 2 3 4
+output=4
+  */
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class TriangleTriplets {
+    public static int countTriangles(int[] nums) {
+        int n = nums.length;
+        if (n < 3) return 0; // Not enough elements to form a triangle
+
+        Arrays.sort(nums); // Step 1: Sort the array
+        int count = 0;
+
+        // Step 2: Iterate over the array, fixing the largest element
+        for (int k = n - 1; k >= 2; k--) {
+            int i = 0, j = k - 1; // Two pointers
+
+            while (i < j) {
+                if (nums[i] + nums[j] > nums[k]) {
+                    count += (j - i); // All elements between i and j can form triangles
+                    j--; // Move j left to check for more possible triplets
+                } else {
+                    i++; // Increase i to check for a larger sum
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); // Read input size
+        int[] nums = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt(); // Read array elements
+        }
+
+        System.out.println(countTriangles(nums));
+        sc.close();
+    }
+}
+
