@@ -1,0 +1,53 @@
+/*A metal fabrication company has two different rods of varying lengths. 
+The company wants to cut both rods into the largest possible equal-sized
+ pieces so that no metal is wasted.
+
+Write a program that takes the lengths of two rods as input and calculates
+ the maximum possible size of a single piece that can be used to cut both rods
+ without any leftover metal.
+
+Your program should determine and print the largest possible length of the equal pieces.
+
+Sample Testcase:1
+-----------------------
+input=24 36
+output=12
+
+Explantion:
+-------------------------------
+Two rod lengths 24 and 36 maximum possible size of single piece is 12
+*/
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int a=sc.nextInt();
+        int b=sc.nextInt();
+        int min = Math.min(a,b);
+        int ans=1;
+        for(int i=2;i<min;i++){
+         if(a%i==0 && b%i==0){
+             ans=i;
+         }   
+        }
+        System.out.println(ans);
+    }
+}
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int a=sc.nextInt();
+        int b=sc.nextInt();
+        int ans=gcd(a,b);
+        System.out.println(ans);
+    }
+    public static int gcd(int a,int b){
+        if(b==0){
+            return a;
+        }
+        else{
+            return gcd(b,a%b);
+        }
+    }
+}
