@@ -1,0 +1,61 @@
+/*You are given an integer array height of length n. There are n vertical
+lines drawn such that the two endpoints of the i-th line are at (i, 0) and (i, height[i]).
+Find two lines that, together with the x-axis, form a container such that the container holds the most water.
+Return the maximum amount of water a container can store.
+
+Note: You may not slant the container.
+
+Sample Testcase:1
+------------------------
+input=1 8 6 2 5 4 8 3 7
+output=49
+*/
+
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[]= sc.nextLine().split(" ");
+        int a[] = new int[s.length];
+        for(int i=0;i<a.length;i++){
+            a[i]=Integer.parseInt(s[i]);
+        }
+        int i=0,j=1;
+        int area=0;
+       while(j<a.length && i<a.length){
+           area=Math.max(area,Math.min(a[i],a[j])*Math.abs(i-j));
+           j++;
+           if(j==a.length){
+               j=0;
+               i++;
+           }
+       }
+       System.out.println(area);
+    }
+}
+
+
+
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[]= sc.nextLine().split(" ");
+        int a[] = new int[s.length];
+        for(int i=0;i<a.length;i++){
+            a[i]=Integer.parseInt(s[i]);
+        }
+        int i=0,j=a.length-1;
+        int area=0;
+       while(i<j){
+           area=Math.max(area,Math.min(a[i],a[j])*Math.abs(i-j));
+           if(a[i]<a[j]){
+               i++;
+           }
+           else{
+               j--;
+           }
+       }
+       System.out.println(area);
+    }
+}
