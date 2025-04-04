@@ -1,0 +1,43 @@
+/*
+Given a binary array nums, you should delete one element from it.
+
+Return the size of the longest non-empty subarray containing 
+only 1's in the resulting array. Return 0 if there is no such subarray.
+
+ maintaining the longest operational sequence.
+
+Sample Testcase:1
+---------------------------
+input=1 1 0 1 1 1 0 1 1
+output=5
+  */
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[]= sc.nextLine().split(" ");
+        int k=1;
+        int a[]=new int[s.length];
+        for(int i=0;i<a.length;i++){
+            a[i]=Integer.parseInt(s[i]);
+            }
+        int c=0,len=0;
+        int i=0,j=0;
+        while(j<a.length){
+            if(a[j]==0){
+                c++;
+            }
+           while(c>k){
+               if(a[i]==0){
+                   c--;
+                 }
+                   i++;
+            }
+            len = Math.max(len, j-i+1);
+            j++;
+        }
+        System.out.println(len-1);
+    }
+
+}
+
