@@ -1,0 +1,42 @@
+/*A data center wants to allocate memory storage in such a way that it can efficiently 
+scale up or down based on demand. The storage units available are always in powers
+of two (1GB, 2GB, 4GB, 8GB, etc.).
+
+To ensure that a given storage request is valid, the system needs a program that 
+checks  whether the requested storage size is a power of two.
+
+Write a Java program that takes an integer representing the storage size and returns true
+ if it is a valid storage size (a power of two) and false otherwise.
+
+Sample Testcase:1
+---------------------------
+input=1
+output=true
+
+Explanation:
+-----------------
+2^0 = 1
+
+*/
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n= sc.nextInt();
+        System.out.println(power(n,n/2));
+    }
+    public static boolean power (int n,int c){
+        if(Math.pow(2,c)==n){
+            return true;
+        }
+        else if(c<0){
+            return false;
+        }
+        else{
+            System.out.println(c--);
+            return power(n,c--);
+        }
+    }
+}
+
+
