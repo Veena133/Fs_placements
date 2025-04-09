@@ -1,0 +1,75 @@
+/*Mr.Kate is a school kid, writing a series of numbers in a special way.
+
+The series looks like following: 
+	- For example, starting number is 25
+	- Next number in the series is, count of digit groups like "one 2 and one 5', written as 1215.
+	- Next number in the series is, count of digit groups like "one 1, one 2, one 1 and one 5', 
+	written as 11121115 and so on.
+
+You will be given a string S (A number), an integer N, where S is the starting number of series, 
+You need to find the N-th term in the series. 
+
+Note: Each term of the series of integers will be represented as a string.
+
+Input Format:
+-------------
+A String S and an integer N
+
+Output Format:
+--------------
+Print the N-th term in the series starts with S.
+
+
+Sample Input-1:
+---------------
+25 3
+
+Sample Output-1:
+----------------
+11121115
+
+
+Sample Input-2:
+---------------
+21 4
+
+Sample Output-2:
+----------------
+132112
+
+Explanation:
+---------------
+1st term, S = 12
+2nd term is "one 2 one 1" -> "1211",
+3rd term is "one 1, one 2, two 1's " -> "111221"
+Finally 4th term is  "three one's, two 2's, one 1" -> "312211".
+  */
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc= new Scanner(System.in);
+        String n=sc.next();
+        int k=sc.nextInt();
+         String s= check(n,k-1);
+        System.out.println(s);
+    }
+    public static String check(String s ,int k){
+        if(k==0){
+            return s;
+        }
+        StringBuilder str = new StringBuilder();
+        int i=0;
+        while(i<s.length()){
+            int count = 1;
+            while (i+1<s.length() && s.charAt(i)==s.charAt(i + 1)) {
+                count++;
+                i++;
+            }
+            str.append(count).append(s.charAt(i));
+            i++;
+            
+        }
+        return check(str.toString(), k-1);
+     }
+            
+}
