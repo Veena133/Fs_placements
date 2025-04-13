@@ -1,0 +1,17 @@
+/*You’re building a bus stop queue system. When the bus arrives, the 
+person at the front of the line boards first and is removed from the queue.
+
+-Your task is to simulate the boarding process by removing the first person from the queue.
+
+Sample Testcase:1
+-------------------------------------
+input=Alice Bob Charlie
+output=[Bob, Charlie]
+  */
+class Solution {
+    
+    public ListNode removeFirst(ListNode head) {
+           head=head.next;
+       return head;
+    }
+}
