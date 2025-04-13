@@ -1,0 +1,22 @@
+/*You manage a stack of shipment orders (processed FIFO). Occasionally, 
+the last order is cancelled before processing due to stock issues.
+
+Your task is to remove the last shipment order from the list.
+
+Sample Testcase:1
+----------------------------
+input=Order1 Order2 Order3
+output=[Order1, Order2]
+*/
+class Solution {
+   
+    public ListNode removeLast(ListNode head) {
+       ListNode curr = head;
+       while(curr.next.next!=null){
+           curr=curr.next;
+       }
+       curr.next=null;
+       return head;
+    }
+}
+
