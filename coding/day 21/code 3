@@ -1,0 +1,51 @@
+/*A university is forming a review panel with an odd number of student representatives.
+ To avoid central bias, they decide to remove the middle-most member.
+
+Your task is to delete the middle student from the list (first middle in even-length case).
+
+Sample Testcase:1
+-------------------------------------
+input=Arjun Riya Neha Mohan
+output=[Arjun, Riya, Mohan] 
+*/
+
+class Solution {
+    
+    public ListNode removeMiddle(ListNode head) {
+        ListNode curr = head;
+        ListNode prev = head;
+        if(head.next==null){
+            return null;
+        }
+        int c=1,k=0;
+        while(curr.next!=null){
+            curr=curr.next;
+           c++;
+        }
+        while(k<(c/2)-1){
+            prev=prev.next;
+           
+            k++;
+        }
+      prev.next=prev.next.next;
+      return head;
+    }
+}
+
+class Solution {
+    
+    public ListNode removeMiddle(ListNode head) {
+      ListNode slow = head;
+      ListNode fast = head;
+      ListNode prev= head;
+      while(fast!=null && fast.next!=null){
+          prev=slow;
+          slow = slow.next;
+          fast = fast.next.next;
+      }
+      prev.next = slow.next;
+      
+      return head;
+    }
+}
+
