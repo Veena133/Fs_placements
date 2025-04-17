@@ -1,0 +1,80 @@
+/*You're given the head of a singly linked list of even length. A twin in this list is defined as:
+The i-th node from the start and the i-th node from the end (0-based indexing).
+Your task is to find the maximum twin sum.
+Each twin sum is calculated as:node[i].val + node[n-1-i].val
+
+Sample Testcase:1
+---------------------------------
+input=4
+1 2 3 4
+output=4
+
+Explanation:
+------------------------------------
+Maximum Twin Sum: 5  (1+4, 2+3)
+
+
+
+*/
+
+
+class Solution{
+    public static int pairSum(Node head){
+                Node slow = head, fast = head;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+      Node second = reverse(slow);
+        Node curr = head;
+        int maxSum = 0;
+        while (second!= null){
+            int sum = curr.val + second.val;
+            maxSum = Math.max(maxSum, sum);
+            curr = curr.next;
+            second = second.next;
+        }
+        return maxSum;
+    }
+    private static Node reverse(Node head){
+        Node prev = null;
+        Node curr = head;
+        while (curr != null){
+            Node nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        return prev;
+    }
+}
+
+
+class Solution{
+    public static int pairSum(Node head){
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node prev = null, curr = slow;
+        while (curr != null){
+            Node nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        Node first = head;
+        Node second = prev;
+        int maxSum = 0;
+        while (second != null){
+            int sum = first.val + second.val;
+            maxSum = Math.max(maxSum, sum);
+            first = first.next;
+            second = second.next;
+        }
+        return maxSum;
+    }
+
+}
+
