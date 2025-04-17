@@ -84,3 +84,68 @@ public class Test{
         System.out.println(count);
     }
 }
+
+import java.util.*;
+public class Solution{
+    private static final int[][] directions = {{0, 1},{1, 0},{0, -1}, {-1, 0}};
+    public static int countTotalSquares(int[][] grid) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int totalSquares = 0;
+        boolean[][] visited = new boolean[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == 1){
+                    totalSquares += countSquaresFromCell(grid, i, j);
+                }
+            }
+            
+        }
+        return totalSquares;
+    }
+    private static int countSquaresFromCell(int[][] grid, int startRow, int startCol) {
+        int rows = grid.length, cols = grid[0].length;
+        int maxSize = 1;
+        boolean canExpand = true;
+        while (canExpand){
+            int newRow = startRow + maxSize;
+            int newCol = startCol + maxSize;
+
+            if (newRow >= rows || newCol >= cols) break;
+
+            for (int i = startRow; i <= newRow; i++) {
+                if (grid[i][newCol] == 0) {
+                    canExpand = false;
+                    break;
+                }
+            }
+            for (int j = startCol; j <= newCol; j++) {
+                if (grid[newRow][j] == 0) {
+                    canExpand = false;
+                    break;
+                }
+            }
+
+            if (canExpand) maxSize++;
+        }
+
+        return maxSize;
+    }
+
+    public static void main(String[] args){
+    Scanner sc= new Scanner (System.in);
+    int m=sc.nextInt();
+    int n= sc.nextInt();
+    int a[][] = new int[m][n];
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            a[i][j]=sc.nextInt();
+            }
+        }
+        System.out.println(countTotalSquares(a));
+    
+
+}
+
+}
