@@ -1,0 +1,112 @@
+/*
+You are given a 2D grid of integers with m rows and n columns. Your task is to determine whether a given target value tar exists in the grid. Starting from the top-left corner (0, 0), you can move only in 4 directions — up, down, left, and right — to adjacent cells.
+
+You must implement a Depth First Search (DFS) to explore the grid. If the target is found during the traversal, print true and stop the search. If the target is not found after the complete traversal, print false.
+
+Input Format
+The first line contains two integers m and n, the dimensions of the grid.
+
+The next m lines each contain n integers — the values of the grid.
+
+The last line contains a single integer tar, the target value to search for.
+
+Output Format
+Print true if the target is found, otherwise print false.
+*/
+import java.util.*;
+
+class Solution {
+    static int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
+    static boolean found = false;
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int grid[][] = new int[m][n];
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                grid[i][j] = sc.nextInt();
+            }
+        }
+
+        int tar = sc.nextInt();
+        boolean visited[][] = new boolean[m][n];
+
+        dfs(0, 0, grid, visited, m, n, tar);
+
+        // If not found, print false
+        if (!found) {
+            System.out.println(false);
+        }
+    }
+
+    public static void dfs(int row, int col, int[][] grid, boolean[][] visited, int m, int n, int tar) {
+        if (row < 0 || col < 0 || row >= m || col >= n || visited[row][col] || found) return;
+
+        visited[row][col] = true;
+
+        if (grid[row][col] == tar) {
+            System.out.println(true);
+            found = true;
+            return;
+        }
+
+        for (int[] d : dir) {
+            int newRow = row + d[0];
+            int newCol = col + d[1];
+            dfs(newRow, newCol, grid, visited, m, n, tar);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+import java.util.*;
+class Solution{
+    static  int [][]dir={{-1,0},{1,0},{0,-1},{0,1}};
+    static boolean found=false;
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int m=sc.nextInt();
+        int n=sc.nextInt();
+        int grid[][]= new int[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                grid[i][j]=sc.nextInt();
+            }
+        }
+        int tar = sc.nextInt();
+        boolean visited[][]= new boolean[m][n];
+        dfs(0,0,grid,visited,m,n,tar);
+        
+
+        if (!found) {
+            System.out.println(false);
+        }
+    }
+    public static void dfs(int row,int col,int[][] grid,boolean[][] visited,int m,int n,int tar){
+        if (row < 0 || col < 0 || row >= m || col >= n || visited[row][col] || found) return;
+        visited[row][col] = true;
+        if(grid[row][col]==tar){
+            System.out.println(true);
+            found=true;
+            return;
+            }
+        for(int[] d : dir ){
+            int newRow = row+d[0];
+            int newCol = col+d[1];
+            dfs(newRow,newCol,grid,visited,m,n,tar);
+        }
+    }
+}
+
+
+
