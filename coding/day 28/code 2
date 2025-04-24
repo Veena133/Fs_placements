@@ -1,0 +1,65 @@
+/*
+You are given an undirected graph with n nodes (labeled from 0 to n-1) and m edges.
+Each edge connects two nodes and is given in the form of a pair [a, b], which
+indicates that there is an edge between node a and node b.
+
+Your task is to write a program to find the number of connected components in 
+the graph using Breadth-First Search (BFS) traversal.
+
+A connected component is a group of nodes such that there is a path between 
+any two nodes in that group.
+
+Input Format:
+-------------------
+Line 1: Two integers `n` and `m` — the number of nodes and number of edges.
+Next `m` lines: Each line contains two integers `a` and `b` — an edge between nodes `a` and `b`.
+Output Format:
+------------------
+Print a single integer — the number of connected components in the graph.
+
+
+Sample testcase:1
+----------------------------
+input=4 2
+0 1
+2 3
+output=2
+
+Explanation:
+----------------------
+First component having nodes 0, 1 and second component having 
+nodes 2, 3
+
+*/
+import java.util.*;
+class Solution{
+    int countConnectedComponents(Graph graph){
+        boolean vis[] = new boolean[graph.V];
+        int comp =0;
+        for(int i=0;i<graph.V;i++){
+            if(!vis[i]){
+                bfs(i,graph,vis);
+                comp++;
+            }
+        }
+        return comp;
+}
+void bfs(int start,Graph graph,boolean vis[]){
+    Queue<Integer> q = new LinkedList<>();
+    q.add(start);
+    vis[start] = true;
+    
+    while(!q.isEmpty()){
+        int node = q.poll();
+        for(int n:graph.adjList[node]){
+            if(!vis[n]){
+                vis[n]=true;
+                q.add(n);
+            }
+        }
+    }
+}
+
+}
+
+
