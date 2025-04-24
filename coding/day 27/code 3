@@ -1,0 +1,134 @@
+/*
+Govind is playing with strings.
+He is given two strings S1 and S2, He has to find if each character in S1 can S2 a word in S2 or not.
+ 
+ A S2 that is both one-to-one (an injection) and onto (a surjection), 
+ i.e. a function which relates each letter in string S1 to a separate and distinct non-empty word in S2, 
+ where each non-empty word in S2 also has a corresponding letter in S1.
+
+ Return true,if it is a complete S2.
+ Otherwise false.
+
+ Note: You may assume S1 and S2 contains only lowercase letters, S2 contains whitespace also.
+
+ Input Format:
+-------------
+Line-1 -> A string S1, single word
+Line-2 -> A string S2, group of space separated words.
+
+Output Format:
+--------------
+Print a boolean value.
+
+Sample Input-1:
+---------------
+baba
+cat rat cat rat
+
+Sample Output-1:
+----------------
+true
+
+Sample Input-2:
+---------------
+baba
+cat rat rat cat
+ 
+Sample Output-2:
+----------------
+false
+ */
+import java.util.*;
+public class Solution{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine(); 
+        String str1 = sc.nextLine(); 
+        String[] s = str1.split(" ");
+        if (str.length() != s.length){
+            System.out.println(false);
+            return;
+            }
+        Map<Character, String> h1 = new HashMap<>();
+        Map<String, Character> h2 = new HashMap<>();
+        for (int i = 0; i < str.length(); i++){
+            char ch = str.charAt(i);
+            String word = s[i];
+            if (h1.containsKey(ch)){
+                if (!h1.get(ch).equals(word)){
+                    System.out.println(false);
+                    return;
+                }
+            } 
+            else{
+                if (h2.containsKey(word)){
+                    System.out.println(false);
+                    return;
+                }
+                h1.put(ch, word);
+                h2.put(word, ch);
+                }
+            }
+        System.out.println(true);
+    }
+
+}
+
+
+import java.util.*;
+
+class Solution {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt(); // rows
+        int m = sc.nextInt(); // columns
+        sc.nextLine(); // consume the rest of the line
+
+        int[][] grid = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            String line = sc.nextLine();
+            for (int j = 0; j < m; j++) {
+                grid[i][j] = line.charAt(j) - '0';
+            }
+        }
+
+        int r = sc.nextInt();
+        int c = sc.nextInt();
+
+        if (grid[r][c] == 1) {
+            Queue<int[]> queue = new LinkedList<>();
+            queue.offer(new int[]{r, c});
+            grid[r][c] = 0;
+
+            int[][] dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // up, down, left, right
+
+            while (!queue.isEmpty()) {
+                int[] curr = queue.poll();
+                int x = curr[0], y = curr[1];
+
+                for (int[] d : dir) {
+                    int nx = x + d[0];
+                    int ny = y + d[1];
+
+                    if (nx >= 0 && nx < n && ny >= 0 && ny < m && grid[nx][ny] == 1) {
+                        grid[nx][ny] = 0;
+                        queue.offer(new int[]{nx, ny});
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(grid[i][j]);
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+
+
