@@ -1,0 +1,83 @@
+/*
+In a large factory, there is an automated robot placed on a floor grid.
+The grid consists of free tiles (represented as 0) and obstacles (represented as 1).
+The robot can move in straight lines (up, down, left, or right) but it cannot stop
+until it hits an obstacle or the edge of the factory.
+
+Once it stops, it can choose a new direction and continue.
+Your task is to determine whether the robot can stop exactly on a target tile.
+
+Input Format:
+--------------------
+A 2D binary matrix factoryFloor representing the layout (0 = free tile, 1 = obstacle).
+A starting position [startRow, startCol].
+A target position [targetRow, targetCol].
+
+Sample Testcase:1
+-------------------------
+input=3 3
+0 0 1
+1 0 1
+1 0 0
+0 0
+2 2
+output=true
+
+Explanation: 
+----------------------------------
+Robot can reach at the target tile
+
+*/
+import java.util.*;
+
+public class Solution{
+    public static boolean dfs(int[][] grid, int[] curr, int[] target, boolean[][] visited){
+        int m = grid.length;
+        int n = grid[0].length;
+        if (visited[curr[0]][curr[1]]){
+            return false;
+            }
+        visited[curr[0]][curr[1]] = true;
+        if (curr[0] == target[0] && curr[1] == target[1]){
+            return true;
+            }
+            int[][] directions = {{-1, 0},{1, 0},{0, -1},{0, 1}};
+        for (int[] dir : directions){
+            int x = curr[0];
+            int y = curr[1];
+            while (x + dir[0] >= 0 && x + dir[0] < m &&
+                   y + dir[1] >= 0 && y + dir[1] < n &&
+                   grid[x + dir[0]][y + dir[1]] == 0){
+                x += dir[0];
+                y += dir[1];
+            }
+            if (dfs(grid, new int[]{x, y}, target, visited)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean find(int[][] grid, int[] start, int[] target){
+        int m = grid.length;
+        int n = grid[0].length;
+        boolean[][] visited = new boolean[m][n];
+        return dfs(grid, start, target, visited);
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int r = sc.nextInt();
+        int c = sc.nextInt();
+        int[][] grid = new int[r][c];
+        for (int i = 0; i < r; i++)
+            for (int j = 0; j < c; j++)
+                grid[i][j] = sc.nextInt();
+        int srow = sc.nextInt(), scol = sc.nextInt();
+        int tr = sc.nextInt(), tc = sc.nextInt();
+        boolean result = find(grid, new int[]{srow, scol}, new int[]{tr, tc});
+        System.out.println(result);
+        }
+
+}
+
+
