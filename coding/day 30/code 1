@@ -1,0 +1,63 @@
+/*Imagine you are building the backend of a scientific calculator app.
+When users enter expressions like "5 + 3 * 2", your app needs to first
+ convert the infix expression to postfix so that it can easily and quickly 
+evaluate the result.
+
+Postfix form removes the need for brackets and reduces confusion in operator precedence (like *, /, +, -).
+It helps your app to calculate expressions faster and more accurately.
+
+Sample Testcase:1
+------------------------------------
+input=a+b+c+d)
+output=ab+c+d+
+*/
+import java.util.*;
+class Solution{
+    private static int precedence(char op) {
+        if (op == '+' || op == '-') return 1;
+        if (op == '*' || op == '/') return 2;
+        if (op == '^') return 3;
+        return -1;
+    }
+    public static String infixToPostfix(String infix) {
+        StringBuilder postfix = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+        for (char ch : infix.toCharArray()) {
+            if (Character.isLetterOrDigit(ch)) {
+                postfix.append(ch);
+            } 
+            else if (ch == '(') {
+                stack.push(ch);
+            } 
+            else if (ch == ')'){
+                while (!stack.isEmpty() && stack.peek() != '('){
+                    postfix.append(stack.pop());
+                }
+                if (!stack.isEmpty() && stack.peek() == '(') {
+                    stack.pop();
+                }
+            } 
+            else {
+                while (!stack.isEmpty() && precedence(ch) <= precedence(stack.peek())) {
+                    postfix.append(stack.pop());
+                    }
+                stack.push(ch);
+            }
+        }
+        while (!stack.isEmpty()) {
+            postfix.append(stack.pop());
+        }
+        return postfix.toString();
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        System.out.println( infixToPostfix(s));
+    }
+}
+
+
+
+
+
+
