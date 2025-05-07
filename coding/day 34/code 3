@@ -1,0 +1,59 @@
+/*You are given a string s that contains:
+Lowercase English letters (a–z)
+Parentheses: '(' and ')'
+Your task is to remove the minimum number of parentheses such that the resulting 
+string is valid.
+
+A valid parentheses string is defined as:
+An empty string ""
+A string containing only lowercase letters (no parentheses)
+A string that can be formed by concatenating two valid strings: "AB"
+A string enclosed in matching parentheses: "(A)", where A is valid
+
+Sample test case:1
+----------------------------
+input=a((b)c)
+output=a((b)c)
+Explanation: 
+--------------------------------
+determine if the parentheses are balanced and valid it is valid nothing to be removed
+
+*/
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        Stack<Integer> stack = new Stack<>();
+        String s = sc.next();
+        ArrayList<Integer> a = new ArrayList<>();
+        StringBuilder str = new StringBuilder();
+        for(int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if(c=='(' ){
+                stack.push(i);
+            }
+            else if(c==')'){
+                if(!stack.isEmpty()){
+                    stack.pop();
+                }
+                else{
+                    a.add(i);
+                }
+            }
+        }
+        while(!stack.isEmpty()){
+            a.add(stack.pop());
+        }
+        for(int i=0;i<s.length();i++){
+            if(!a.contains(i)){
+                str.append(s.charAt(i));
+            }
+        }
+        System.out.print(str.toString());
+    
+
+}
+
+}
+
+
