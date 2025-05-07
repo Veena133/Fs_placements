@@ -1,0 +1,82 @@
+/*A power company is designing a power distribution tree made up of bulbs with different voltage ratings.
+
+The bulbs are arranged in a binary tree structure, level by level.
+Level 0 contains the main power source (root bulb).
+From level 1 onward, each bulb can have at most two child bulbs (left and right), connected directly.
+A missing bulb is indicated by -1 in the input (i.e., an empty attachment).
+The structure is provided in level-order format (i.e., top to bottom, left to right).
+Your task is to:
+Return an ArrayList containing the highest voltage bulb at each level of the power distribution tree.
+
+Input Format:
+-------------
+A single line of space separated integers, voltages of the set of bulbs.
+
+Output Format:
+--------------
+Print the list of voltages.
+
+
+Sample Testcase:1
+----------------------------
+input=7
+10 5 15 3 7 -1 20
+output=[10, 15, 20]
+
+Explanation:
+----------------------------
+Level 0: [10] → max = 10
+Level 1: [5, 15] → max = 15
+Level 2: [3, 7, 20] → max = 20
+/*class TreeNode {
+    int val;
+    TreeNode left, right;
+    TreeNode(int x) { val = x; }
+}
+*/
+  */
+import java.util.*;
+class Solution
+  {
+   public static ArrayList<Integer> getMaxPerLevel(TreeNode root) {
+       ArrayList<Integer> r = new ArrayList<>();
+        if(root ==null ) return r;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int n=queue.size();
+            int max=Integer.MIN_VALUE;
+            for(int i=0;i<n;i++){
+                TreeNode value = queue.poll();
+                max=Math.max(max,value.val);
+                if(value.left!=null) queue.offer(value.left);
+                if(value.right!=null) queue.offer(value.right);
+            }
+            r.add(max);
+            
+        }
+        return r;
+  }
+ 
+}
+  import java.util.*;
+class Solution
+  {
+   public static ArrayList<Integer> getMaxPerLevel(TreeNode root) {
+      ArrayList<Integer> al = new ArrayList<>();
+      MaxVoltage(root,0,al);
+      return al;
+   }
+   public static void MaxVoltage(TreeNode node,int level,ArrayList<Integer> al){
+       if(node ==null) return;
+       if(level == al.size()){
+           al.add(node.val);
+       }
+       else{
+           al.set(level,Math.max(al.get(level),node.val));
+       }
+       MaxVoltage(node.left,level+1,al);
+       MaxVoltage(node.right,level+1,al);
+   }
+  }
+
