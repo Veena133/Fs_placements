@@ -1,0 +1,90 @@
+/*
+There are N cities, and M routes[], each route is a path between two cities.
+routes[i] = [city1, city2], there is a travel route between city1 and city2.
+Each city is numbered from 1 to N.
+ 
+There are one or more Regions formed among N cities. 
+A Region is formed in such way that you can travel between any two cities 
+in the region that are connected directly and indirectly.
+ 
+Your task is to findout the number of regions formed between N cities. 
+ 
+Input Format:
+-------------
+Line-1: number of cities N
+Next M lines: adjacency matrix of size N*N.
+ 
+Output Format:
+--------------
+Print an integer, number of regions formed.
+ 
+ 
+Sample Input-1:
+---------------
+5
+0 1 1 0 0
+0 0 1 0 0
+0 0 0 1 0
+0 0 0 0 0
+0 0 0 1 0
+ 
+Sample Output-1:
+----------------
+2
+*/
+import java.util.*;
+
+class Solution {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[][] a = new int[n][n];
+
+        int[][] dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+        
+        boolean[][] visited = new boolean[n][n];
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                a[i][j] = sc.nextInt();
+            }
+        }
+
+        int count = 0; 
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (a[i][j] == 1 && !visited[i][j]) {
+                    bfs(a, visited, i, j, dir, n);
+                    count++;
+                }
+            }
+        }
+
+        System.out.println(count);
+    }
+    static void bfs(int[][] a, boolean[][] visited, int row, int col, int[][] dir, int n) {
+
+
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{row, col});
+        visited[row][col] = true;
+
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+            int r = current[0];
+            int c = current[1];
+
+            for (int[] d : dir) {
+                int newR = r + d[0];
+                int newC = c + d[1];
+
+                if (newR >= 0 && newR < n && newC >= 0 && newC < n && a[newR][newC] == 1 && !visited[newR][newC]) {
+                    queue.offer(new int[]{newR, newC});
+                    visited[newR][newC] = true;
+                }
+            }
+        }
+    }
+
+}
