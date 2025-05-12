@@ -1,0 +1,109 @@
+/*Ramesh and Suresh are playing a game.
+Initially, Ramesh has a secret number, and Suresh has to guess that number.
+Ramesh now checks, How many digits of the guess number match 
+the secret number exactly, if both the digit and position are matched, 
+indicate them as Apples. If the digit is matched and position is different, 
+indicate them as Bananas.
+
+Ramesh will give a hint to Suresh as follows:
+e.g., secret number= 1231, and guess number = 4213
+Only digit=2 is matching, so apple is 1, banana is 2
+Ramesh tell the answer as 1A2B
+
+You are given secrect number and guess number as strings,
+Your task to help Ramesh, to find and return the HINT.
+
+NOTE: The length of the both secrect and guess number is same, 
+		contains only digits.
+
+Input Format:
+-------------
+Two strings, secret and guess
+
+Output Format:
+--------------
+Print the string, the HINT.
+
+
+Sample Input-1:
+---------------
+1807 7810
+
+Sample Output-1:
+----------------
+1A3B
+
+Explanation: 
+------------
+1 Apple and 3 Banana. Apple is 8, Banana are 0, 1 and 7.
+
+
+Sample Input-2:
+---------------
+1123 0111
+
+Sample Output-2:
+----------------
+1A1B
+
+Explanation: 
+------------
+The 1st 1 in Suresh guess is an Apple, the 2nd or 3rd 1 is B.
+*/
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String m= sc.next();
+        String n= sc.next();
+        ArrayList<Character> a = new ArrayList<>();
+        
+        int c1=0,c2=0;
+            for(int i=0;i<m.length();i++){
+                if(m.charAt(i)==n.charAt(i)){
+                    c1++;
+                }
+                else{
+                     a.add(m.charAt(i));
+                }
+              
+            }
+            for(int i=0;i<m.length();i++){
+                if(m.charAt(i)!=n.charAt(i)){
+                    char c= n.charAt(i);
+                if(a.contains(c)){
+                    c2++;
+                    a.remove((Character)c);
+                }
+                }
+        }
+        StringBuilder str = new StringBuilder();
+        str.append(c1).append('A').append(c2).append('B');
+        System.out.println(str);
+    }
+}
+
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String a1 = sc.next();
+        String a2 = sc.next();
+        int a1cnt []= new int[10];
+        int a2cnt []= new int[10];
+        int acnt=0;
+        for(int i=0;i<a1.length();i++){
+            if(a1.charAt(i)==a2.charAt(i))
+            {acnt++;}
+            else{
+                a1cnt[a1.charAt(i)-'0']++;
+                a2cnt[a2.charAt(i)-'0']++;
+            }
+        }
+        int bcnt = 0;
+        for(int i=0;i<10;i++){
+            bcnt+=Math.min(a1cnt[i],a2cnt[i]);
+        }
+        System.out.println(acnt+"A"+bcnt+"B");
+    }
+}   
