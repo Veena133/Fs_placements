@@ -1,0 +1,67 @@
+/*
+Alice is working with a set of words[], 
+He wants to find out the common substring in all the words in the set,
+and the substring should be the longest and also a prefix.
+
+Can you help Alice to find such substring.
+If the substring is found, print it.
+Otherwise, print an empty string,"".
+
+Input Format:
+-------------
+Space separated strings, set of words[].
+
+Output Format:
+--------------
+Print a string, the substring.
+
+
+Sample Input-1:
+---------------
+apple applet application append
+
+Sample Output-1:
+----------------
+app
+*/
+
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[] = sc.nextLine().split(" ");
+        Arrays.sort(s);
+        StringBuilder str = new StringBuilder();
+        for(int i=0;i<s[s.length-1].length();i++){
+         if(s[0].charAt(i)!=s[s.length-1].charAt(i)){
+             break;
+         }  
+         else{
+            str.append(s[0].charAt(i));
+         }
+        }
+        System.out.println(str);
+    }
+}
+
+
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[] = sc.nextLine().split(" ");
+        String a1 = s[0];
+        for(int i=1;i<s.length;i++){
+            while(s[i].indexOf(a1)!=0){
+                a1 = a1.substring(0,a1.length()-1);
+                if(a1.isEmpty()){
+                    System.out.print("");
+                    return;
+                }
+            }
+            
+        }
+        System.out.print(a1);
+        
+    }
+}
