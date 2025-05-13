@@ -1,0 +1,76 @@
+/*You're given an array of strings (strs). Each string is either:
+Only digits → Its value is the number it represents (e.g., "0042" → 42)
+Contains any letters → Its value is its length (e.g., "abc123" → 6)
+Goal: Find the maximum value among all strings based on this rule.
+
+Sample Testcase:1
+---------------------------------
+input=alic3,bob,3,4,00000
+output=5
+Explanation:
+----------------------------------- 
+- "alic3" consists of both letters and digits, so its value is its length, i.e. 5.
+- "bob" consists only of letters, so its value is also its length, i.e. 3.
+- "3" consists only of digits, so its value is its numeric equivalent, i.e. 3.
+- "4" also consists only of digits, so its value is 4.
+- "00000" consists only of digits, so its value is 0.
+Hence, the maximum value is 5, of "alic3".
+  */
+import java.util.*;
+
+class Solution {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        String s[] = sc.nextLine().split(",");
+        int max = 0;
+
+        for (String str : s) {
+            boolean hasLetter = false;
+            boolean hasDigit = false;
+
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if (Character.isLetter(c)){
+                        hasLetter = true;
+                        break;
+                }
+                if (Character.isDigit(c)) hasDigit = true;
+            }
+
+            if (hasDigit && !hasLetter) {
+
+                int i = 0;
+                while (i < str.length() && str.charAt(i) == '0') {
+                    i++;
+                }
+                String str2 = str.substring(i);
+                if (str2.isEmpty()) str2 = "0";
+                max = Math.max(max, Integer.parseInt(str2));
+            } else if ( hasLetter) {
+                max = Math.max(max, str.length());
+            }
+        }
+
+        System.out.println(max);
+    }
+
+}
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[]= sc.next().split(",");
+        int maxVal = 0;
+        for(int i=0;i<s.length;i++){
+            String a = s[i];
+            int val;
+            if(a.matches("\\d+")){
+                val = Integer.parseInt(a);
+            }else{
+                val = a.length();
+            }
+            maxVal = Math.max(maxVal,val);
+        }
+        System.out.print(maxVal);
+    }
+}
