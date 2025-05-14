@@ -1,0 +1,40 @@
+/*
+Given the root of a binary search tree, and an integer k, return the kth smallest 
+value (1-indexed) of all the values of the nodes in the tree.
+
+Sample Testcase:1
+-----------------------------------
+input=3,1,4,-1,2
+1
+output=1
+
+
+*/
+import java.util.*;
+
+
+// class TreeNode {
+//     int val;
+//     TreeNode left, right;
+
+//     TreeNode(int val) {
+//         this.val = val;
+//     }
+// }
+
+public class Solution{
+   
+
+    public int kthSmallest(TreeNode root, int k) {
+        ArrayList<Integer> res = new ArrayList<>();
+        res = inorder(root,res);
+        return res.get(k-1);
+    }
+public static ArrayList<Integer> inorder (TreeNode root,ArrayList<Integer> res){
+    if(root==null ) return res;
+    inorder(root.left,res);
+    res.add(root.val);
+    inorder(root.right,res);
+    return res;
+}
+}
