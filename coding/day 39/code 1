@@ -1,0 +1,44 @@
+/*Given an array arr of positive integers sorted in a strictly increasing order, 
+and an integer k.
+Return the kth positive integer that is missing from this array.
+
+Sample Testcase:1
+--------------------------------------------
+input=5
+2 3 4 7 11
+5
+output=9
+Explanation: The missing positive integers are [1,5,6,8,9,10,12,13,...].
+The 5th missing positive integer is 9.
+*/
+
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); 
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++){
+            arr[i] = sc.nextInt();
+        }
+        int k = sc.nextInt(); 
+        
+        int cnt = 0;
+        int cur = 1;
+        int idx = 0;
+        while (true){
+            if (idx < n && arr[idx] == cur){
+                idx++;
+                }
+            else{
+             cnt++;
+            if (cnt == k){
+                    System.out.println(cur);
+                    break;
+                }
+            }
+            cur++;
+    }
+}
+
+}
