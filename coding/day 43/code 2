@@ -1,0 +1,136 @@
+/*
+Estar is an intelligent girl
+She always send the information in endoded format.
+For Example: 
+String S= "meetingatbarista"
+and integer N = 4, is number of rows.
+
+She encode the string S as follows:
+m  g  i
+e na rs
+ei  ta t
+t   b  a
+
+Now to obtain encoded S,  append all the characters row-wise, "mgienarseitattba".
+
+Please help Estar with a program, to enode the given string S, based N value.
+
+Input Format:
+-------------
+Line-1 -> An integer N.
+Line-2 -> A String S
+
+Output Format:
+--------------
+Print the encoded S.
+
+
+Sample Input-1:
+---------------
+4
+meetingatbarista
+
+Sample Output-1:
+----------------
+mgienarseitattba
+
+
+Sample Input-2:
+---------------
+3
+canwecatchupforsometime
+
+Sample Output-2:
+----------------
+Cecfoiawcthposmtmnauree
+  */
+import java.util.*;
+
+class Solution {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();        
+        String s = sc.next();       
+
+        if (n == 1) {
+            System.out.println(s);
+            return;
+        }
+        StringBuilder[] strs = new StringBuilder[n];
+        for (int i = 0; i < n; i++) {
+            strs[i] = new StringBuilder();
+            }
+        int ind = 0;
+        boolean check = true;
+
+        for (int i = 0; i < s.length(); i++) {
+            strs[ind].append(s.charAt(i));
+            
+            if (ind == 0) {
+                check = true;
+            } 
+            else if (ind == n - 1) {
+                check = false;
+            }
+            if (check) {
+                ind++;
+            }
+            else{
+                ind--;
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            result.append(strs[i]);
+        }
+        System.out.println(result);
+    }
+
+}
+
+import java.util.*;
+class test{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int r=sc.nextInt();
+        String s=sc.next();
+        int len=s.length();
+        char[][]a=new char[r][len];
+        int i=0,j=0;
+        boolean flag=true;
+        for (int k=0;k<len;k++){
+            a[i][j] = s.charAt(k);
+            if (flag){
+                if (i<r-1){
+                    i++;
+                }
+                else{
+                    flag=false;
+                    i--;
+                    j++;
+                }
+            } 
+            else{
+                if(i>0){
+                    i--;
+                    j++;
+                } 
+                else{
+                    flag=true;
+                    i++;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int x=0;x<r;x++){
+            for (int y=0;y<len;y++){
+                if (Character.isLetter(a[x][y])){
+                    sb.append(a[x][y]);
+                }
+            }
+        }
+        System.out.println(sb.toString());
+        }
+
+}
+
