@@ -1,0 +1,67 @@
+/*You are given a Type-II address string. A valid Type-II address must meet the
+following conditions:
+
+It contains exactly 8 parts, each called a hextet.
+Each hextet is separated by a colon : character.
+Each hextet must:
+Contain 1 to 4 characters.
+Contain only hexadecimal characters (0-9, a-f, A-F).
+Write a program that reads a Type-II address string and prints:
+"Valid" if all the conditions are satisfied.
+"Invalid" otherwise.
+
+Sample Testcase:1
+---------------------------------
+input=abcd:ef12:3456:7:dce8:fab9:1:0cda
+output=Valid
+*/
+import java.util.*;
+class Solution
+{
+    public static void main(String args[])
+    {
+        Scanner S=new Scanner(System.in);
+        String str=S.next();
+        int n=str.length();
+        int c=0;
+        for(int i=0;i<n;i++)
+        {
+            char ch=str.charAt(i);
+            if(ch==':') c++;
+        }
+        String s="abcdefABCDEF0123456789";
+        if(c==7)
+        {
+            String hextet[]=str.split(":");
+            for(int i=0;i<hextet.length;i++)
+            {
+                if(hextet[i].length()>4 || hextet[i].length()<1)
+                {
+                    System.out.print("Invalid");
+                    return;
+                }
+                else
+                {
+                    for(int j=0;j<hextet[i].length();j++)
+                    {
+                        char ch=hextet[i].charAt(j);
+                        if(s.indexOf(ch)==-1)
+                        {
+                            System.out.print("Invalid");
+                            return;
+                        }
+                    } 
+	
+                }
+                
+            }
+            System.out.print("Valid");
+        } 
+        else
+        {
+            System.out.print("Invalid");
+            return;
+        }
+    }
+    
+}
