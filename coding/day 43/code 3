@@ -1,0 +1,94 @@
+/*
+Mr Rao is given a word. 
+He has to divide the word into N non-empty parts in such a way that all the 
+newly formed words should be distinct, and 
+after appending all those words it should form original word W.
+
+Help Mr Rao to divide the word into N parts,
+such that, the value of N should be maximized, and print N.
+
+Input Format:
+-------------
+Line-1: A string W, a word.
+
+Output Format:
+--------------
+Print an integer result, the value of N.
+
+
+Sample Input-1:
+---------------
+banana
+
+Sample Output-1:
+----------------
+4
+
+Explanation: 
+------------
+One way to divide the word is "b","a","n","ana".
+If you divide it like "b","a","n","an","a".The word "a" will be repeated.
+So it is not allowed to divide like the second way.
+
+
+Sample Input-2:
+---------------
+mississippi
+
+Sample Output-2:
+----------------
+7
+
+Explanation: 
+------------
+One of the way to divide the word is "m","i","s","si","ssi","p","pi".
+
+NOTE: Subsequences are not allowed.
+  */
+
+import java.util.*;
+class Solution{
+    static int max=0;
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s= sc.next();
+        HashSet<String> h=new HashSet<>();
+        backtrack(s,0,h,0);
+        /*int i = 0;
+while(i < s.length()) {
+    StringBuilder str = new StringBuilder();
+    str.append(Character.toString(s.charAt(i)));
+
+    if (!h.contains(str.toString())) {
+        h.add(str.toString());
+        i++;
+    } else {
+        while(h.contains(str.toString()) && i < s.length()) {
+            str.append(Character.toString(s.charAt(i)));
+            i++;
+        }
+        h.add(str.toString());
+        i++;
+    }
+}
+System.out.println(h);
+System.out.println(h.size());
+*/
+        System.out.println(max);
+        
+    }
+    public static void backtrack(String s,int start,HashSet<String> h , int c){
+        if(start==s.length()){
+            max=Math.max(max,c);
+            return ;
+        }
+        for(int i=start+1;i<=s.length();i++){
+            String str = s.substring(start,i);
+            if(!h.contains(str)){
+                h.add(str);
+                backtrack(s,i,h,c+1);
+                h.remove(str);
+            }
+        }
+    }
+}
