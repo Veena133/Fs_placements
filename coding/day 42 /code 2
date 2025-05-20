@@ -1,0 +1,72 @@
+/*You are given an array words consisting of strings. Each string in words has the same length n.
+Each string can be converted into a difference array of length n - 1. The difference array is
+ calculated using the positions of characters in the English alphabet (where 'a' = 0, 'b' = 1, ..., 'z' = 25).
+
+For a string s, its difference array diff is defined as:
+diff[i] = position(s[i+1]) - position(s[i])   for i = 0 to n - 2
+
+All strings in the array words have the same difference array except one. 
+Your task is to find and return the string with the unique difference array.
+
+Sample Testcase:1
+-----------------------------------
+input=adc,wzy,abc
+output=abc
+
+Explanation: 
+--------------------------------
+- The difference integer array of "adc" is [3 - 0, 2 - 3] = [3, -1].
+- The difference integer array of "wzy" is [25 - 22, 24 - 25]= [3, -1].
+- The difference integer array of "abc" is [1 - 0, 2 - 1] = [1, 1]. 
+The odd array out is [1, 1], so we return the corresponding string, "abc".
+  */
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String[] s = sc.nextLine().split(",");
+        HashMap<String,Integer> h = new HashMap<>();
+        HashMap<String,String> h1 = new HashMap<>();
+        for(String str : s){
+        StringBuilder diff = new StringBuilder();
+            for (int i=0; i<str.length()-1; i++) {
+                int d = str.charAt(i + 1) - str.charAt(i);
+                diff.append(d).append(",");
+            }
+           String key = diff.toString();
+            h.put(key, h.getOrDefault(key, 0) + 1);
+            h1.put(key, str);
+
+        }
+        for (Map.Entry<String, Integer> entry : h.entrySet()){
+                if(entry.getValue()==1){
+                    System.out.println(h1.get(entry.getKey()));
+                }
+            }
+        }
+}
+
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[] = sc.nextLine().split(",");
+        int n = s.length;
+        Map<String,List<Integer>>map = new HashMap<>();
+        for(int i=0;i<n;i++){
+            String word = s[i];
+            StringBuilder sb = new StringBuilder();
+            for(int j=0;j<word.length()-1;j++){
+                sb.append(word.charAt(j+1)-word.charAt(j)).append(",");
+            }
+            String diff = sb.toString();
+            map.putIfAbsent(diff,new ArrayList<>());
+            map.get(diff).add(i);
+        }
+        for(List<Integer> idx:map.values()){
+            if(idx.size()==1){
+                System.out.print(s[(idx.get(0))]);
+            }
+        }
+    }
+}
