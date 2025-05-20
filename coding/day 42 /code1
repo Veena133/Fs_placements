@@ -1,0 +1,118 @@
+/*Program to construct a binary tree and traverse the tree in
+preorder, inorder, postorder
+
+Sample Testcase:1
+---------------------------------
+input=1 2 3 4 5 6 7 8 9
+output=
+1 2 4 8 9 5 3 6 7   
+8 4 9 2 5 1 6 3 7   
+8 9 4 5 2 6 7 3 1 
+
+*/
+import java.util.*;
+
+
+/*class Node {
+    int data;
+    Node left, right;
+
+    Node(int value) {
+        data = value;
+        left = right = null;
+    }
+}
+*/
+class Solution {
+    
+
+    public static List<Integer> preorder(Node root) {
+        List<Integer> pre = new ArrayList<>();
+        pre=preOrder(root,pre);
+        return pre;
+    }
+    public static List<Integer> preOrder(Node root,List<Integer> pre){
+        if(root==null) return pre;
+        pre.add(root.data);
+        preOrder(root.left,pre);
+        preOrder(root.right,pre);
+        return pre;
+    }
+    
+
+    public static List<Integer> inorder(Node root) {
+         List<Integer> in = new ArrayList<>();
+        in=inOrder(root,in);
+        return in;
+       
+    }
+    public static List<Integer> inOrder(Node root,List<Integer> in){
+        if(root==null) return in;
+        inOrder(root.left,in);
+        in.add(root.data);
+        inOrder(root.right,in);
+        return in;
+    }
+
+  
+    public static List<Integer> postorder(Node root) {
+         List<Integer> post = new ArrayList<>();
+        post=postOrder(root,post);
+        return post;
+       
+    }
+      public static List<Integer> postOrder(Node root,List<Integer> post){
+        if(root==null) return post;
+        postOrder(root.left,post);
+        postOrder(root.right,post);
+        post.add(root.data);
+        return post;
+    }
+
+   
+}
+import java.util.*;
+
+
+/*class Node {
+    int data;
+    Node left, right;
+
+    Node(int value) {
+        data = value;
+        left = right = null;
+    }
+}
+*/
+class Solution {
+static  List<Integer> pre = new ArrayList<>();
+static  List<Integer> in = new ArrayList<>();
+static List<Integer> post = new ArrayList<>();
+    public static List<Integer> preorder(Node root) {
+        if(root==null) return pre;
+        pre.add(root.data);
+        preorder(root.left);
+        preorder(root.right);
+        return pre;
+    }
+    public static List<Integer> inorder(Node root) {
+ 
+        if(root==null) return in;
+        inorder(root.left);
+        in.add(root.data);
+        inorder(root.right);
+        return in;
+       
+    }
+    public static List<Integer> postorder(Node root) {
+
+        if(root==null) return post;
+        postorder(root.left);
+        postorder(root.right);
+        post.add(root.data);
+        return post;
+       
+    }
+   
+}
+
