@@ -1,0 +1,58 @@
+/*A university is forming a committee of r members from a pool of n student volunteers.
+ The goal is to explore all possible unique combinations of size r from the list of
+ students, so that the event coordinator can choose the most suitable team based on 
+different criteria (e.g., skill set, availability, diversity).
+
+Write a program to generate all combinations of size r using backtracking
+
+Input Format:
+-------------------
+Line:1-N number of array elements
+Line:2- Array elements
+Line:3- Size of combination
+
+Sample Testcase:1
+-----------------------------------
+input=5
+1 2 3 4 5
+3
+output=
+[1, 2, 3]
+[1, 2, 4]
+[1, 2, 5]
+[1, 3, 4]
+[1, 3, 5]
+[1, 4, 5]
+[2, 3, 4]
+[2, 3, 5]
+[2, 4, 5]
+[3, 4, 5]
+*/
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n= sc.nextInt();
+        int a[] = new int[n];
+        for(int i=0;i<n;i++){
+            a[i]=sc.nextInt();
+        }
+        int tar=sc.nextInt();
+        List<List<Integer>> res = new ArrayList<>();
+        backtrack(res,new ArrayList<Integer>(),a,0,tar);
+        for(int i=0;i<res.size();i++){
+            System.out.println(res.get(i));
+        }
+    }
+    public static void backtrack(List<List<Integer>> res,ArrayList<Integer> temp,int[] a, int start,int tar){
+        if(temp.size()==tar){
+            res.add(new ArrayList(temp));
+            return ;
+        }
+        for(int i=start;i<a.length;i++){
+            temp.add(a[i]);
+            backtrack(res,temp,a,i+1,tar);
+            temp.remove(temp.size()-1);
+        }
+    }
+}
