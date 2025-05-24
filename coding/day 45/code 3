@@ -1,0 +1,136 @@
+/*In a school, there are N students in a class numbered from 1,2,3..N.
+During the play time in school, drill master wants to split them into 
+two teams based on their interest.
+ 
+If the pair of students want to play opposite each other, drill master should 
+put them in different teams, e.g. pair[i] = (A,B), it is not allowed to 
+put A and B in same team.
+   
+You need to find out wether is it possible to put everyone into two teams or not
+return true if it is possible, otherwise false.
+ 
+Input Format:
+----------------
+Line-1 -> Two Integers, N and P, number of students N, number of pairs P.
+Next P lines -> Two integers, one pair[i], where 'i' is from 0 to P-1
+ 
+Output Format:
+------------------
+Print a boolean result.
+ 
+ 
+Sample Input-1:
+-------------------
+ 5 4
+ 1 2
+ 1 3
+ 2 4
+ 3 5
+ 
+Sample Output-1:
+---------------------
+ true
+
+Explanation: 
+----------------
+ team1 [1,4,5], team2 [2,3]
+ 
+ 
+Sample Input-2:
+-------------------
+ 5 5
+ 1 2
+ 2 3
+ 3 4
+ 4 5
+ 1 5
+  
+ Sample Output-2:
+ ---------------------
+  false
+
+  */
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int l = sc.nextInt();
+        int s = sc.nextInt();
+        boolean flag = true;
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
+        for(int i=0;i<s;i++){
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            
+            hm.putIfAbsent(u,new ArrayList<>());
+            hm.putIfAbsent(v,new ArrayList<>());
+            hm.get(u).add(v);
+            hm.get(v).add(u);
+        }
+        int a[] = new int[l+1];
+        for(int i=1;i<=l;i++){
+            if(a[i]==0){
+                Queue<Integer> q = new LinkedList<>();
+                q.add(i);
+                a[i]=1;
+                
+                while(!q.isEmpty()){
+                    int cur = q.poll();
+                    if(!hm.containsKey(cur))continue;
+                    for(int n:hm.get(cur)){
+                        if(a[n]==0){
+                            a[n]= 3-a[cur];
+                            q.add(n);
+                        }
+                        else if(a[n]==a[cur]){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if(!flag)break;
+                }
+            }
+            if(!flag)break;
+        }
+        System.out.print(flag);
+    }
+}
+
+/*
+import java.util.*;
+class Solution {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int[][] a = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            a[i][0] = sc.nextInt();
+            a[i][1] = sc.nextInt();
+        }
+        Set<Integer> l1 = new HashSet<>();
+        Set<Integer> l2 = new HashSet<>();
+
+        for (int i = 0; i < n; i++) {
+            int u = a[i][0];
+            int v = a[i][1];
+            if ((l1.contains(u) && l1.contains(v)) || (l2.contains(u) && l2.contains(v))) {
+                System.out.println("false");
+                return;
+            }
+
+            if (l1.contains(u)) l2.add(v);
+            else if (l1.contains(v)) l2.add(u);
+            else if (l2.contains(u)) l1.add(v);
+            else if (l2.contains(v)) l1.add(u);
+            else {
+                l1.add(u);
+                l2.add(v);
+            }
+        }
+
+        System.out.println("true");
+    }
+
+}
+*/
