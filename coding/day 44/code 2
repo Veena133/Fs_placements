@@ -1,0 +1,66 @@
+/*A manager is planning to form a small project team of r employees from a list of candidates. 
+Each candidate has an associated cost (e.g., based on hourly rate or required resources). 
+The total cost of the selected team must not exceed a predefined budget S.
+
+The goal is to generate all possible teams of exactly r employees such that the total 
+cost of each team is strictly less than S.
+
+Note: The candidate list (with their costs) is provided in sorted order 
+
+Input Format:
+--------------------------------
+Line:1- N value
+Line:2- number of elements
+Line:3- combination size 
+Line:4- maximum sum limit 
+
+Sample Testcase:1
+--------------------------------
+input=5  
+1 2 3 4 5  
+3  
+10  
+output=
+[1, 2, 3]
+[1, 2, 4]
+[1, 2, 5]
+[1, 3, 4]
+[1, 3, 5]
+[2, 3, 4]
+  */
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n= sc.nextInt();
+        int a[] = new int[n];
+        for(int i=0;i<n;i++){
+            a[i]=sc.nextInt();
+        }
+        int tar=sc.nextInt();
+        int sum1 = sc.nextInt();
+        List<List<Integer>> res = new ArrayList<>();
+        backtrack(res,new ArrayList<Integer>(),a,0,tar,sum1);
+        for(int i=0;i<res.size();i++){
+            System.out.println(res.get(i));
+        }
+    }
+    public static void backtrack(List<List<Integer>> res,ArrayList<Integer> temp,int[] a, int start,int tar,int sum1){
+        if(temp.size()==tar){
+            int sum=0;
+            for(int i=0;i<tar;i++){
+                sum+=temp.get(i);
+                }
+                if(sum<sum1){
+                     res.add(new ArrayList(temp));
+                }
+            return;
+        }
+        for(int i=start;i<a.length;i++){
+            temp.add(a[i]);
+            backtrack(res,temp,a,i+1,tar,sum1);
+            temp.remove(temp.size()-1);
+        }
+    }
+
+}
