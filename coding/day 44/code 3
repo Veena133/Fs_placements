@@ -1,0 +1,96 @@
+/*Given an m x n binary matrix filled with 0's and 1's, find the largest square 
+containing only 1's and return its area.
+
+case=1
+input=4 5
+1 0 1 0 0
+1 0 1 1 1
+1 1 1 1 1
+1 0 0 1 0
+output=4
+  */
+import java.util.*;
+class Solution{
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int matrix[][] = new int[m][n];
+         for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++){
+                matrix[i][j]=sc.nextInt();
+            }
+        }
+        int maxLen = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++){
+                if (matrix[i][j] == 1) {
+                    int len = dfs(matrix, i, j, m, n);
+                    maxLen = Math.max(maxLen, len);
+                }
+            }
+        }
+
+        System.out.println(maxLen * maxLen);
+    }
+    public static int dfs(int[][] matrix, int row, int col, int m, int n) {
+        int maxSize = 0;
+        int size = 1;
+
+        while (row + size <= m && col + size <= n) {
+            for (int i = row; i < row + size; i++) {
+                if (matrix[i][col + size - 1] == 0) return maxSize;
+            }
+            for (int j = col; j < col + size; j++) {
+                if (matrix[row + size - 1][j] == 0) return maxSize;
+            }
+            maxSize = size;
+            size++;
+        }
+        return maxSize;
+    }
+}
+import java.util.*;
+
+public class MaximalSquareArea {
+    public static int maximalSquare(char[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] dp = new int[m][n];
+        int maxSide = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == '1') {
+                    if (i == 0 || j == 0)
+                        dp[i][j] = 1;
+                    else
+                        dp[i][j] = 1 + Math.min(dp[i - 1][j - 1],
+                                        Math.min(dp[i - 1][j], dp[i][j - 1]));
+                    maxSide = Math.max(maxSide, dp[i][j]);
+                }
+            }
+        }
+
+        return maxSide * maxSide;
+    }
+
+    public static void main(String[] args) {
+        // Sample input
+        int m = 4, n = 5;
+        int[][] input = {
+            {1, 0, 1, 0, 0},
+            {1, 0, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+            {1, 0, 0, 1, 0}
+        };
+
+        // Convert int[][] to char[][] for the function
+        char[][] matrix = new char[m][n];
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                matrix[i][j] = (char)(input[i][j] + '0');
+
+        System.out.println(maximalSquare(matrix)); // Output: 4
+    }
+}
