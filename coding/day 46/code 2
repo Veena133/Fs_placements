@@ -1,0 +1,55 @@
+/*Koko loves to eat bananas. There are n piles of bananas, the ith pile has 
+piles[i] bananas. The guards have gone and will come back in h hours.
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she 
+chooses some pile of bananas and eats k bananas from that pile. If the pile 
+has less than k bananas, she eats all of them instead and will not eat any 
+more bananas during this hour.
+
+Koko likes to eat slowly but still wants to finish eating all the bananas 
+before the guards return.
+
+Return the minimum integer k such that she can eat all the bananas within 
+h hours.
+
+Sample Testcase:1
+------------------------
+input=4
+3 6 7 11
+8
+output=4
+*/
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int pile[] = new int[n];
+        for(int i=0;i<n;i++){
+            pile[i] = sc.nextInt();
+        }
+        int h = sc.nextInt();
+	int max=0;
+        for(int i=0;i<n;i++){
+	max = Math.max(max,pile[i]);
+	}
+        int low = 1;
+        int high = max;
+        int res = high;
+        while(low<=high){
+            int mid = low+(high-low)/2;
+        int k=0;
+        for(int i=0;i<n;i++){
+            k+=(int)Math.ceil((double)pile[i]/mid);
+        }
+        if(k<=h){
+            res = mid;
+            high = mid-1;
+        }
+        else{
+            low= mid+1;
+        }
+        }
+        System.out.println(res);
+    }
+}
+
