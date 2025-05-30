@@ -1,0 +1,313 @@
+/*Imagine you are at a large conference with n attendees numbered from 0 to n-1.
+Among them, there might be a VIP guest — a celebrity who:
+Everyone else at the conference knows (they recognize or have heard of the VIP).
+The VIP does not know any of the other attendees (they keep a low profile and don’t recognize others).
+Your goal is to find out who the VIP guest is, or determine that there isn’t one.
+
+How you can find the VIP:
+You can only ask one question at a time to an attendee:
+
+"Hey, does person A know person B?"
+
+Using as few such questions as possible, determine:
+The VIP’s label if one exists.
+Or return -1 if there is no VIP.
+
+The input is an n x n matrix (2D grid), where n is the number of people.
+The element at position [i][j] is either:
+	1 if person i knows person j.
+	0 if person i does NOT know person j.
+	
+Sample Testcase:1
+-------------------------------
+input=3
+1 1 0
+0 1 0
+1 1 1
+output=1
+
+Explanation:
+-----------------------------------
+
+There are three persons labeled with 0, 1 and 2. graph[i][j] = 1 
+means person i knows person j, otherwise graph[i][j] = 0 means person i does 
+not know person j. The VIP is the person labeled as 1 because 
+both 0 and 2 know him but 1 does not know anybody.
+*/
+
+import java.util.*;
+
+public class Test {
+    static int n;
+    static int grid[][];
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt(); 
+        grid = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                grid[i][j] = sc.nextInt(); 
+            }
+        }
+
+        int vip = find(n);
+        System.out.println(vip);
+    }
+    public static boolean knows(int a, int b) {
+        return grid[a][b] == 1;
+    }
+    public static int find(int n) {
+        int candidate = 0;
+        for (int i = 1; i < n; i++) {
+            if (knows(candidate, i)) {
+                candidate = i;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (i == candidate) continue;
+            if (knows(candidate, i) || !knows(i, candidate)) {
+                return -1;
+            }
+        }
+
+        return candidate;
+    }
+}
+
+
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        HashMap<Integer, List<Integer>> h = new HashMap<>();
+        int[][] a = new int[n][n];
+
+        // Input matrix
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                a[i][j] = sc.nextInt();
+            }
+        }
+
+        // Fill map: who each person knows
+        for (int i = 0; i < n; i++) {
+            List<Integer> l = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                if (i != j && a[i][j] == 1) {
+                    l.add(j);
+                }
+            }
+            h.put(i, l);
+        }
+
+        // Check each person: candidate knows no one
+        for (int i = 0; i < n; i++) {
+            if (h.get(i).isEmpty()) {
+                boolean isCelebrity = true;
+
+                // Now check if everyone else knows this person (column check)
+                for (int j = 0; j < n; j++) {
+                    if (i != j && a[j][i] != 1) {
+                        isCelebrity = false;
+                        break;
+                    }
+                }
+
+                if (isCelebrity) {
+                    System.out.println(i);  // Found the VIP
+                    return;
+                }
+            }
+        }
+
+        // No VIP found
+        System.out.println(-1);
+    }
+}
+/*
+Given an undirected graph and a number m, determine if the graph can be 
+colored with at most m colors such that no two adjacent vertices of the 
+graph are colored with same color. Here coloring of a graph means assignment 
+of colors to all vertices.
+
+An adjacency list representation of the graph having N nodes and M edges 
+is provided as input, You only have to implement the graphColoring() method. 
+Print true if the graph can be colored with m colors, else return false.
+
+Sample test case
+
+     0----1
+    |      |    \
+    |      |      \
+    |      |       4
+    |      |      /
+    |      |    /
+     2----3
+
+case=1
+input=5 6
+0 1
+0 2
+1 3
+1 4
+2 3
+3 4
+3
+output=true
+
+Explanation: 
+-----------------------------
+Input: First input line is the number of nodes, followed by number edges, 
+followed by values for the edges, followed by m colors for coloring.
+Output: true, 
+One way is Node ->Color: 0->1, 1->2, 3->1, 4->1 and 2->2
+All nodes can be colored using m colors where no two adjacent nodes have the 
+same color.
+
+Sample Testcase:1
+-----------------------------------
+input=5 6
+0 1
+0 2
+1 3
+1 4
+2 3
+3 4
+2
+output=false
+  */
+import java.util.*;
+class Solution
+{
+    boolean canColorGraph(Graph graph, int color)
+    {
+      int a[] = new int[graph.V];
+      return solve(0,graph,color,a);
+    }
+    public boolean solve(int node,Graph graph,int color,int a[]){
+        if(node == graph.V)return true;
+        for(int c=1;c<=color;c++){
+            if(isSafe(node,graph,a,c)){
+                a[node]=c;
+                if(solve(node+1,graph,color,a)) return true;
+                a[node] = 0;
+            }
+        }
+        return false;
+    }
+    public boolean isSafe(int node,Graph graph, int a[],int color){
+        for(int n:graph.adjList[node]){
+            if(a[n] == color)return false;
+        }
+        return true;
+    }
+}
+
+/*
+There is a robot on an m x n grid. The robot is initially located at the 
+top-left corner (i.e., grid[0][0]). The robot tries to move to the 
+bottom-right corner (i.e., grid[m - 1][n - 1]). 
+The robot can only move either down or right at any point in time.
+
+Given the two integers m and n, return the number of possible unique paths 
+that the robot can take to reach the bottom-right corner.
+
+Sample Testcase:1
+-----------------------------
+input=3 2
+output=3
+Explanation:
+-------------------------------
+From the top-left corner, there are a total of 3 ways to reach 
+the bottom-right corner:
+1. Right -> Down -> Down
+2. Down -> Down -> Right
+3. Down -> Right -> Down
+  */
+import java.util.*;
+
+public class Solution{
+    
+    static int count = 0;
+       public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        countPaths(m, n);
+}
+    public static void countPaths(int m, int n) {
+        count = 0;
+        traverse(0, 0, m, n);
+        System.out.println( count);
+    }
+    private static void traverse(int i, int j, int m, int n) {
+        if (i == m - 1 && j == n - 1) {
+            count++;
+            return;
+        }
+
+        if (j + 1 < n) {
+            traverse(i, j + 1, m, n);
+        }
+
+        if (i + 1 < m) {
+            traverse(i + 1, j, m, n);
+        }
+    }
+ 
+
+}
+/*
+Given the root of a binary tree, imagine yourself standing on the right side 
+of it, return the values of the nodes you can see ordered from top to bottom.
+
+Sample Testcase:1
+----------------------------
+input=7
+1 2 3 -1 5 -1 4
+output=[1, 3, 4]
+*/
+
+// class Node
+// {
+//     int data;
+//     Node left, right;
+//     Node(int data)
+//     {
+//         this.data = data;
+//         left = right = null;
+//     }
+// }
+
+import java.util.*;
+class Solution
+{
+    List<Integer> rightSideView(Node root)
+    {
+        List<Integer> res = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+        if(root==null) return res;
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size=queue.size();
+            Node rightele=null;
+            for(int i=0;i<size;i++){
+                Node node = queue.poll();
+                if(node!=null){
+                    rightele=node;
+                if(node.left!=null) queue.offer(node.left);
+                if(node.right!=null) queue.offer(node.right);
+                    
+                }
+            }
+            if(rightele!=null){
+                res.add(rightele.data);
+            }
+        }
+        return res;
+    }
+   
+}
