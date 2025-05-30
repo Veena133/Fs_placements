@@ -1,0 +1,358 @@
+Given two integers n and k, return all possible combinations of k numbers 
+chosen from the range [1, n].
+
+Sample Testcase:1
+-------------------------------
+input=4 2
+output=[[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
+Explanation: There are 4 choose 2 = 6 total combinations.
+
+Note that combinations are unordered, i.e., [1,2] and [2,1] are considered 
+to be the same combination.
+
+import java.util.*;
+class Solution
+{
+    public static void main(String args[])
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int k=s.nextInt();
+        List<List<Integer>> res=new ArrayList<>();
+        List<Integer> l=new ArrayList<>();
+        backtrack(res,l,n,k,1);
+        System.out.print(res);
+    }
+    public static void backtrack(List<List<Integer>> res,List<Integer> l,int n,int k,int start)
+    {
+        if(l.size()==k)
+        {
+            res.add(new ArrayList(l));
+            return;
+        }
+        for(int i=start;i<=n;i++)
+        {
+            l.add(i);
+            backtrack(res,l,n,k,i+1);
+            l.remove(l.size()-1);
+        }
+    }
+}
+
+
+A valid IP address consists of exactly four integers separated by single dots. 
+Each integer is between 0 and 255 (inclusive) and cannot have leading zeros.
+
+For example, "0.1.2.201" and "192.168.1.1" are valid IP addresses, 
+but "0.011.255.245", "192.168.1.312" and "192.168@1.1" are invalid IP addresses.
+Given a string s containing only digits, return all possible valid IP addresses 
+that can be formed by inserting dots into s. You are not allowed to reorder or 
+remove any digits in s. You may return the valid IP addresses in any order.
+
+Sample Testcase:1
+----------------------------------------
+input=25525511135
+output=[255.255.11.135, 255.255.111.35]
+
+import java.util.*;
+class Test
+{
+    public static void main(String args[])
+    {
+        Scanner s=new Scanner(System.in);
+        String str=s.next();
+        List<String> l=new ArrayList<>();
+        List<String> parts=new ArrayList<>();
+        address(l,parts,str,0);
+        System.out.print(l);
+        
+    }
+    public static void address(List<String> l,List<String> parts,String str,int start)
+    {
+        if(parts.size()==4&&start==str.length())
+        {
+            l.add(String.join(".",parts));
+            return;
+        }
+        if(parts.size()>4)return;
+        for(int i=1;i<=3&&start+i<=str.length();i++)
+        {
+            String part=str.substring(start,start+i);
+            if(isValid(part))
+            {
+                parts.add(part);
+                address(l,parts,str,start+i);
+                parts.remove(parts.size()-1);
+            }
+        }
+    }
+    public static boolean isValid(String part)
+    {
+        if(part.length()>1&&part.charAt(0)=='0')
+            return false;
+        int val=Integer.parseInt(part);
+        if(val>=0&&val<=255)return true;
+        return false;
+    }
+}
+
+Given an array of distinct integers candidates and a target integer target, 
+return a list of all unique combinations of candidates where the chosen numbers 
+sum to target. You may return the combinations in any order.
+
+The same number may be chosen from candidates an unlimited number of times. 
+Two combinations are unique if the frequency of at least one of the chosen 
+numbers is different.
+
+The test cases are generated such that the number of unique combinations that 
+sum up to target is less than 150 combinations for the given input.
+
+case=1
+input=4
+2 3 8 7
+7
+output=[[2, 2, 3], [7]]
+Explanation:
+2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+7 is a candidate, and 7 = 7.
+These are the only two combinations.
+
+
+import java.util.*;
+class Test{
+    public static void main(String args[])
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int a[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=s.nextInt();
+        }
+        int t=s.nextInt();
+        List<List<Integer>> res = new ArrayList<>();
+        backtrack(res, new ArrayList<>(), 0, t, a);
+
+        System.out.println(res);
+    }
+    public static void backtrack(List<List<Integer>> res,List<Integer> l,int start,int t,int a[])
+    {
+        if(Sum(l)>t) return;
+        
+        if(Sum(l)==t)
+        {
+            res.add(new ArrayList<>(l));
+            return;
+        }
+        for(int i=start;i<a.length;i++)
+        {
+            l.add(a[i]);
+            backtrack(res,l,i,t,a);
+            l.remove(l.size()-1);
+        }
+    }
+    
+    public static int Sum(List<Integer> a)
+    {
+        int sum=0;
+        for(int num:a)
+        {
+            sum+=num;
+        }  
+        return sum;
+    }
+}
+
+
+
+Given a string containing digits from 2-9 inclusive, return all possible 
+letter combinations that the number could represent.
+A mapping of digits to letters (just like on the telephone buttons) 
+is given below. 
+
+2-> a, b, c
+3-> d, e, f
+4-> g, h, i
+5-> j, k, l
+6-> m, n, o
+7-> p, q, r, s
+8-> t, u, v
+9-> w, x, y, z
+
+Note:'1' does not map to any letters. The result should be in ascending order.
+ 
+Sample Testcase:1
+----------------------------
+input=2
+output=[a, b, c]
+
+Sample Testcase:2
+----------------------------
+input=23
+output=[ad, ae, af, bd, be, bf, cd, ce, cf]
+
+import java.util.*;
+
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        if (digits == null || digits.length() == 0) return result;
+
+        String[] mapping = {
+            "",     // 0
+            "",     // 1 (not used)
+            "abc",  // 2
+            "def",  // 3
+            "ghi",  // 4
+            "jkl",  // 5
+            "mno",  // 6
+            "pqrs", // 7
+            "tuv",  // 8
+            "wxyz"  // 9
+        };
+
+        backtrack(digits, 0, new StringBuilder(), result, mapping);
+        Collections.sort(result);  // to ensure ascending order
+        return result;
+    }
+
+    private void backtrack(String digits, int index, StringBuilder current,
+                           List<String> result, String[] mapping) {
+        if (index == digits.length()) {
+            result.add(current.toString());
+            return;
+        }
+
+        String letters = mapping[digits.charAt(index) - '0'];
+        for (char c : letters.toCharArray()) {
+            current.append(c);
+            backtrack(digits, index + 1, current, result, mapping);
+            current.deleteCharAt(current.length() - 1); // backtrack
+        }
+    }
+}
+
+
+Given the root of a binary tree, return the vertical order traversal of its 
+nodes' values. (i.e., from top to bottom, column by column).
+If two nodes are in the same row and column, the order should be from 
+left to right.
+
+Sample Testcase:1
+----------------------------
+input=7
+3 9 20 -1 -1 15 7
+output=[[9], [3, 15], [20], [7]]
+
+import java.util.*;
+class Solution
+{
+    List<List<Integer>> verticalOrder(Node root)
+    {
+        // Implement your code here
+        if(root==null)return new ArrayList<>();
+        Map<Integer,List<Integer>> tm=new TreeMap<>();
+        Queue<Pair> q=new LinkedList<>();
+        q.add(new Pair(root,0));
+        while(!q.isEmpty())
+        {
+            Pair p=q.poll();
+            Node node=p.node;
+            int col=p.col;
+            tm.putIfAbsent(col,new ArrayList<>());
+            tm.get(col).add(node.data);
+            if(node.left!=null)
+                q.add(new Pair(node.left,col-1));
+            if(node.right!=null)
+                q.add(new Pair(node.right,col+1));
+            
+        }
+        return new ArrayList<>(tm.values());
+    }
+}
+class Pair
+{
+    Node node;
+    int col;
+    Pair(Node node,int col)
+    {
+        this.node=node;
+        this.col=col;
+    }
+}
+
+
+Given a positive integer n, return the punishment number of n.
+
+The punishment number of n is defined as the sum of the squares of all 
+integers i such that:
+
+Sample Testcase:1
+-------------------------------------
+input=10
+output=182
+
+Explanation:
+---------------------------------
+There are exactly 3 integers i in the range [1, 10] that 
+satisfy the conditions in the statement:
+- 1 since 1 * 1 = 1
+- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 and 1 with a sum 
+equal to 8 + 1 == 9.
+- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 and 0 with a 
+sum equal to 10 + 0 == 10.
+Hence, the punishment number of 10 is 1 + 81 + 100 = 182
+
+
+
+Akbar used to play chess with Birbal almost every evening.
+Once Akbar has challanged Birbal to place the queens in each row of the board,
+such that no queen should attack another queen on the board.
+
+You are given an integer N, indicates the size of the board as N*N.
+Your task is to help Birbal to find and win in this challange, 
+if there is a solution, print the answer as shown in the samples
+Otherwise, print "No Solution"
+Input Format:
+-------------
+An integer N, size of the chess board.
+Output Format:
+--------------
+Print any possible solution.
+
+Sample Input-1:
+---------------
+4  //no. of queens and 4*4 chessboard
+
+Sample Output-1:
+------------------
+2 4 1 3
+3 1 4 2
+
+
+class Solution {
+    public int punishmentNumber(int n) {
+        int sum = 0;
+        for (int i = 1; i <= n; i++) {
+            int square = i * i;
+            if (canPartition(Integer.toString(square), i)) {
+                sum += square;
+            }
+        }
+        return sum;
+    }
+
+    private boolean canPartition(String str, int target) {
+        return dfs(str, 0, target);
+    }
+
+    private boolean dfs(String str, int index, int target) {
+        if (index == str.length()) return target == 0;
+
+        for (int i = index + 1; i <= str.length(); i++) {
+            int num = Integer.parseInt(str.substring(index, i));
+            if (dfs(str, i, target - num)) return true;
+        }
+        return false;
+    }
+}
