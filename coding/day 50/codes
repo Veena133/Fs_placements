@@ -1,0 +1,168 @@
+1)
+You are given an array nums[], where each element in the array represents the maximum jump distance the robotic vacuum cleaner can make from that room. Initially, the vacuum cleaner is in the first room (index 0), and the goal is to determine whether the vacuum cleaner can reach the last room in the house.
+
+At each room, the vacuum cleaner can either:
+
+Stay in the current room (i.e., not move at all), or
+
+Move forward to any of the next rooms, up to the maximum number of rooms 
+allowed by the jump distance in the current room.
+
+You are asked to write a function that determines whether the robotic
+vacuum cleaner can make it to the last room (index n-1) from the first
+room (index 0) based on the jump distances provided in the nums array.
+
+Sample Testcase:1
+--------------------
+input=2 3 1 1 4
+output=true
+
+Explanation:
+----------------
+Jump 1 step from index 0 to 1, then 3 steps to the last index.
+
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[] = sc.nextLine().split(" ");
+        int a[] = new int[s.length];
+        for(int i=0;i<s.length;i++){
+            a[i]= Integer.parseInt(s[i]);
+        }
+        int n=0;
+        boolean flag = false;
+        for(int i=0;i<a.length;i++){
+            if(i>n){
+                break;
+            }
+            n = Math.max(n,i+a[i]);
+            if(n>=a.length-1){
+                flag = true;
+                break;
+            }
+        }
+        System.out.print(flag);
+    }
+}
+
+2)
+A bank is upgrading its ATM machines to support faster and more
+ efficient cash distribution. During testing, engineers discovered 
+that the ATM splits a 4-digit withdrawal amount into individual digits 
+and then rearranges them to form two 2-digit denominations to be dispensed (e.g., ₹20 and ₹32).
+
+To optimize the number of notes used and reduce machine load, the 
+software must compute the minimum possible sum of these two new 
+2-digit values, ensuring the digits are reused once and only once.
+
+Sample Testcase:1
+----------------------
+input=2932
+output=52
+
+Explanation:
+---------------------
+Some possible pairs [new1, new2] are [29, 23], [223, 9], etc.
+The minimum sum can be obtained by the pair [29, 23]: 29 + 23 = 52.
+
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        int[] digits = new int[4];
+
+        for (int i = 0; i < 4; i++) {
+            digits[i] = input.charAt(i) - '0';
+        }
+
+        int minSum = Integer.MAX_VALUE;
+
+        // Try all 4! (24) permutations of the 4 digits
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (j == i) continue;
+                for (int k = 0; k < 4; k++) {
+                    if (k == i || k == j) continue;
+                    for (int l = 0; l < 4; l++) {
+                        if (l == i || l == j || l == k) continue;
+
+                        int num1 = digits[i] * 10 + digits[j];
+                        int num2 = digits[k] * 10 + digits[l];
+                        int sum = num1 + num2;
+
+                        if (sum < minSum) {
+                            minSum = sum;
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println(minSum);
+    }
+}
+
+
+or
+
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        int n []= new int[4];
+        for(int i=0;i<4;i++){
+            n[i] = s.charAt(i)-'0';
+        }
+        Arrays.sort(n);
+        int r1 = n[0]*10+n[2];
+        int r2 = n[1]*10+n[3];
+        int res= r1+r2;
+        System.out.print(res);
+    }
+}
+
+3)
+You have a water dispenser that can dispense cold, warm,
+ and hot water. Every second, you can either fill up 2 
+cups with different types of water, or 1 cup of any type 
+of water.
+
+You are given a 0-indexed integer array amount of length
+ 3 where amount[0], amount[1], and amount[2] denote the 
+number of cold, warm, and hot water cups you need to fill
+ respectively. Return the minimum number of seconds needed 
+to fill up all the cups.
+
+Sample Testcase:1
+----------------------------
+input=1 4 2
+output=4
+Explanation:
+----------------------------
+One way to fill up the cups is:
+Second 1: Fill up a cold cup and a warm cup.
+Second 2: Fill up a warm cup and a hot cup.
+Second 3: Fill up a warm cup and a hot cup.
+Second 4: Fill up a warm cup.
+It can be proven that 4 is the minimum number of seconds needed.
+
+import java.util.*;
+public class Test{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String s[]= sc.nextLine().split(" ");
+        int n[] = new int[s.length];
+        int sum =0 ;
+        for(int i=0;i<s.length;i++){
+            n[i]= Integer.parseInt(s[i]);
+            sum+=n[i];
+        }
+        Arrays.sort(n);
+        int minsecs = Math.max(n[n.length-1],(sum+1)/2);
+        System.out.print(minsecs);
+    }
+}
